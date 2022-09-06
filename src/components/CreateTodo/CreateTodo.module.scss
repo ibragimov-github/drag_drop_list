@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  height: 215px;
+  margin-top: 20px;
+  background-color: #fff;
+
+  .header {
+    width: 100%;
+    height: 57px;
+    display: flex;
+    align-items: center;
+    padding-left: 2.5%;
+    border-bottom: 1px solid #F3F3F3;
+
+    h4 {
+      font-size: 26px;
+      margin: 0;
+    }
+  }
+
+  .add-menu {
+    margin: 0 auto;
+    width: 95%;
+    height: calc(100% - 57px);
+    display: flex;
+    align-items: center;
+  }
+}

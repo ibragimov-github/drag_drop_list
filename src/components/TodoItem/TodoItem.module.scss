@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 5px 10px;
+  border-top: 1px solid #F0F2F5;
+  border-bottom: 1px solid #F0F2F5;
+  cursor: grab;
+
+  .content {
+    font-size: 22px;
+  }
+
+  .control {
+    min-width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
