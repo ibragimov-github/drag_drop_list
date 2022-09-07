@@ -3,9 +3,12 @@ import { Layout, Col, Row } from 'antd';
 import HeaderList from '../Header/HeaderList';
 import CreateTodo from '../CreateTodo/CreateTodo';
 import ListTodo from '../ListTodo/ListTodo';
+import { useState } from 'react'
+
 const { Header, Content } = Layout;
 
 function App() {
+  const [list, setList] = useState([]);
   return (
     <div className={styles.container}>
       <Layout className={styles.wrapper}>
@@ -18,13 +21,19 @@ function App() {
               span={20}
               className={styles.createtodo}
             >
-              <CreateTodo />
+              <CreateTodo
+                list={list}
+                setList={setList}
+              />
             </Col>
             <Col
               span={20}
               className={styles.todolist}
             >
-              <ListTodo />
+              <ListTodo
+                list={list}
+                setList={setList}
+              />
             </Col>
           </Row>
         </Content>

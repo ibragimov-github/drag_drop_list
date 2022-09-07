@@ -2,16 +2,23 @@ import { useState, KeyboardEvent } from 'react'
 import styles from './CreateTodo.module.scss';
 import { Button, Input } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import todo from '../../store/ToDo';
-import { observer } from 'mobx-react-lite';
-const CreateTodo = observer(() => {
+type TypeTodo = {
+  id: string,
+  content: string,
+  status: boolean
+}
+type TypeListTodo = {
+  list: TypeTodo[],
+  setList: any
+}
+const CreateTodo = ({list, setList}: TypeListTodo) => {
   const [input, setInput] = useState('')
   const createTodo = () => {
-    todo.addTodo({
+    setList([{
       id: String(Date.now()),
       content: input,
       status: false
-    });
+    } ,...list])
     setInput('');
   }
   const createTodoKeyboard = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -42,6 +49,6 @@ const CreateTodo = observer(() => {
       </div>
     </div>
   );
-})
+}
 
 export default CreateTodo;

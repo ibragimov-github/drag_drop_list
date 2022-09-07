@@ -1,12 +1,21 @@
 import styles from './ListTodo.module.scss';
-import todo from '../../store/ToDo';
 import TodoItem from '../TodoItem/TodoItem';
-import { observer } from 'mobx-react-lite';
 import { Select } from 'antd';
 import { useState } from 'react';
-const { Option } = Select;
+import { Reorder } from 'framer-motion'
 
-const ListTodo = observer(() => {
+const { Option } = Select;
+type TypeTodo = {
+  id: string,
+  content: string,
+  status: boolean
+}
+type TypeListTodo = {
+  list: TypeTodo[],
+  setList: any
+}
+
+const ListTodo = ({ list, setList }: TypeListTodo) => {
   const [filter, setFilter] = useState('all');
   const handleChange = (value: string) => {
     setFilter(value)
@@ -23,25 +32,40 @@ const ListTodo = observer(() => {
         <Option value="completed">Сompleted</Option>
         <Option value="uncompleted">Uncompleted</Option>
       </Select>
-      {todo.todoList.map((todo) => {
-        return (
-          filter === 'all' ?
-            <TodoItem
-              key={todo.id}
-              todoItem={todo}
-            /> : filter === 'completed' && todo.status ?
+      <Reorder.Group
+        as='div'
+        axis='y'
+        values={list}
+        onReorder={setList}
+      >
+        {list.map((todo) => {
+          return (
+            filter === 'all' ?
               <TodoItem
                 key={todo.id}
                 todoItem={todo}
-              /> : filter === 'uncompleted' && !todo.status ?
+                list={list}
+                setList={setList}
+              /> : filter === 'completed' && todo.status ?
                 <TodoItem
                   key={todo.id}
                   todoItem={todo}
-                /> : null
-        )
-      })}
+                  list={list}
+                  setList={setList}
+
+                /> : filter === 'uncompleted' && !todo.status ?
+                  <TodoItem
+                    key={todo.id}
+                    todoItem={todo}
+                    list={list}
+                    setList={setList}
+
+                  /> : null
+          )
+        })}
+      </Reorder.Group>
     </div>
   );
-})
+}
 
 export default ListTodo;

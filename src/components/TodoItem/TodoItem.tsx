@@ -1,29 +1,48 @@
 import styles from './TodoItem.module.scss';
-import todo from '../../store/ToDo';
-import { observer } from 'mobx-react-lite';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Switch, Button, Popconfirm, Typography } from 'antd';
 import { DeleteFilled } from '@ant-design/icons';
+import { Reorder } from 'framer-motion';
+
 const { Text } = Typography;
 
 type TypeTodo = {
-  todoItem: {
-    id: string,
-    content: string,
-    status: boolean
-  }
+  id: string,
+  content: string,
+  status: boolean
+}
+type TypeListTodo = {
+  list: TypeTodo[],
+  setList: any,
+  todoItem: TypeTodo
 }
 
-const TodoItem = observer(({ todoItem }: TypeTodo) => {
-  const {id, content, status} = todoItem;
+const TodoItem = ({ list, setList, todoItem }: TypeListTodo) => {
+  const { id, content, status } = todoItem;
   const handleChange = (value: boolean) => {
-    todo.completeTodo(id)
+    setList(list.map((todo) => {
+      if(todo.id === id) {
+        return {
+          ...todo,
+          status: !status
+        }
+      }
+      return todo;
+    }))
   }
   const confirm = () => {
-    todo.removeTodo(id)
+    setList(list.filter((todo) => {
+      if(todo.id !== id) {
+        return todo;
+      }
+      return null
+    }))
   };
   return (
-    <div className={styles.container}>
+    <Reorder.Item
+      className={styles.container}
+      value={todoItem}
+    >
       <Text
         className={styles.content}
         delete={status}
@@ -47,8 +66,8 @@ const TodoItem = observer(({ todoItem }: TypeTodo) => {
         </Popconfirm>
 
       </div>
-    </div>
+    </Reorder.Item>
   );
-})
+}
 
 export default TodoItem;
