@@ -27,22 +27,16 @@ const ListTodo = observer(() => {
         return (
           filter === 'all' ?
             <TodoItem
-              id={todo.id}
-              status={todo.status}
               key={todo.id}
-              content={todo.content}
+              todoItem={todo}
             /> : filter === 'completed' && todo.status ?
               <TodoItem
-                id={todo.id}
-                status={todo.status}
                 key={todo.id}
-                content={todo.content}
+                todoItem={todo}
               /> : filter === 'uncompleted' && !todo.status ?
                 <TodoItem
-                  id={todo.id}
-                  status={todo.status}
                   key={todo.id}
-                  content={todo.content}
+                  todoItem={todo}
                 /> : null
         )
       })}

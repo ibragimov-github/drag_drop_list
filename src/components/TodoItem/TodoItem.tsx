@@ -7,12 +7,15 @@ import { DeleteFilled } from '@ant-design/icons';
 const { Text } = Typography;
 
 type TypeTodo = {
-  id: string,
-  content: string,
-  status: boolean
+  todoItem: {
+    id: string,
+    content: string,
+    status: boolean
+  }
 }
 
-const TodoItem = observer(({ id, content, status }: TypeTodo) => {
+const TodoItem = observer(({ todoItem }: TypeTodo) => {
+  const {id, content, status} = todoItem;
   const handleChange = (value: boolean) => {
     todo.completeTodo(id)
   }
