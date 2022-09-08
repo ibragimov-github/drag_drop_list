@@ -42,6 +42,7 @@ const TodoItem = ({ list, setList, todoItem }: TypeListTodo) => {
     <Reorder.Item
       className={styles.container}
       value={todoItem}
+      as='div'
     >
       <Text
         className={styles.content}
