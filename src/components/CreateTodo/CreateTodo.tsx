@@ -11,15 +11,17 @@ type TypeListTodo = {
   list: TypeTodo[],
   setList: any
 }
-const CreateTodo = ({list, setList}: TypeListTodo) => {
+const CreateTodo = ({ list, setList }: TypeListTodo) => {
   const [input, setInput] = useState('')
   const createTodo = () => {
-    setList([{
-      id: String(Date.now()),
-      content: input,
-      status: false
-    } ,...list])
-    setInput('');
+    if (input.trim().length) {
+      setList([{
+        id: String(Date.now()),
+        content: input,
+        status: false
+      }, ...list])
+      setInput('');
+    }
   }
   const createTodoKeyboard = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') createTodo();
